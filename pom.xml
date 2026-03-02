@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 项目基础信息：适配无人机智能监控场景 -->
+    <groupId>com.drone.monitor</groupId>
+    <artifactId>drone-intelligent-monitoring</artifactId>
+    <version>1.0.0</version>
+    <name>Drone Intelligent Monitoring System</name>
+    <description>Java backend for drone-based monitoring (farmland/forest/water/urban governance)</description>
+
+    <!-- 父工程：升级为 Spring Boot 3.2.3（最新稳定版） -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/>
+    </parent>
+
+    <!-- 全局属性配置：Spring Boot 3 要求 Java 17+ -->
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        
+        <!-- 无人机/地理信息/媒体处理依赖版本（适配Java 17） -->
+        <lombok.version>1.18.30</lombok.version>
+        <fastjson2.version>2.0.48</fastjson2.version> <!-- 升级为FastJSON2（适配Java 17） -->
+        <geotools.version>30.2</geotools.version>    <!-- 升级GeoTools（适配Java 17） -->
+        <javacv.version>1.5.9</javacv.version>
+        <okhttp.version>4.12.0</okhttp.version>      <!-- 升级OkHttp最新版 -->
+    </properties>
+
+    <!-- 仓库配置：解决GeoTools、JavaCV等第三方依赖下载问题 -->
+    <repositories>
+        <!-- GeoTools 官方仓库（地理信息处理） -->
+        <repository>
+            <id>osgeo</id>
+            <name>OSGeo Release Repository</name>
+            <url>https://repo.osgeo.org/repository/release/</url>
+            <snapshots><enabled>false</enabled></snapshots>
+            <releases><enabled>true</enabled></releases>
+        </repository>
+        <!-- JavaCV 仓库（音视频/图像处理） -->
+        <repository>
+            <id>javacv</id>
+            <name>JavaCV Repository</name>
+            <url>https://raw.github.com/bytedeco/javacv/maven/</url>
+        </repository>
+    </repositories>
+
+    <!-- 核心依赖（适配Spring Boot 3） -->
+    <dependencies>
+        <!-- 1. 基础Web服务：Spring Boot Web（适配Spring 6） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- 2. 无人机飞控交互：HTTP/网络请求 -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>${okhttp.version}</version>
+        </dependency>
+
+        <!-- 3. 地理信息处理（适配Java 17） -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-geojson</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+
+        <!-- 4. 无人机航拍媒体处理 -->
+        <dependency>
+            <groupId>org.bytedeco</groupId>
+            <artifactId>javacv-platform</artifactId>
+            <version>${javacv.version}</version>
+        </dependency>
+
+        <!-- 5. 数据解析与工具类（适配Java 17） -->
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>${fastjson2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 6. 数据库存储（Spring Boot 3 适配版） -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- 7. 系统监控与测试 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- 构建配置：打包为可执行JAR -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
