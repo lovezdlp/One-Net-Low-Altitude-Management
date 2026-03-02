@@ -1,4 +1,4 @@
-English | [中文](./README.md)
+English | [中文](./README.zh.md)
 
 # Unified One-Net Low-Altitude Management - UAV Inspection System
 ## Project Introduction
