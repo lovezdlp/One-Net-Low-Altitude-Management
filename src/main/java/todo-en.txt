@@ -1,0 +1,12 @@
+
+At present, only some of the documentation materials are open-sourced, and the source code level is commercially open.
+
+For system information or environment demonstrations, please contact wechat: xiaoyuner1349
+
+Mature and implementable scenarios, supporting algorithm definition:
+
+1.Cultivated Land Protection: Real-time identification, precise annotation and trajectory tracking of illegal construction occupying farmland
+2.Ecological & Environmental Protection: Sewage outlet monitoring, water quality anomaly identification and pollution source localization
+3.Forest Fire Prevention: Intelligent forest fire and smoke identification, high-temperature point early warning and fire point positioning
+4.Water Area Control: Early warning of illegal vessel intrusion, river channel illegal construction and floating object identification
+Urban Governance: Illegal parking capture, roadside operation identification and municipal facility inspection
